@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.dio.sacolaApi.enumeration.PaymentForm;
 
@@ -36,7 +37,7 @@ public class Bag {
 	@JsonIgnore
 	private Client client;
 	@OneToMany(cascade = CascadeType.ALL)
-	private List<Item> items;
+	@Getter private List<Item> items;
 	private Double totalValue;
 	@Enumerated
 	private PaymentForm paymentForm;
