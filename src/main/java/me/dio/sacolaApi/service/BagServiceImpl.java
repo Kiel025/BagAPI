@@ -2,6 +2,7 @@ package me.dio.sacolaApi.service;
 
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -56,7 +57,7 @@ public class BagServiceImpl implements BagService {
 		}
 		
 		bagRepository.save(bag);
-		return itemRepository.save(item);
+		return item;
 	}
 
 	@Override
