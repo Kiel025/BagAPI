@@ -1,5 +1,6 @@
 package me.dio.sacolaApi.resource;
 
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import me.dio.sacolaApi.model.Item;
 import me.dio.sacolaApi.resource.dto.ItemDto;
 import me.dio.sacolaApi.service.BagService;
 
+@Api(value = "/ifood-dev-week/bags", tags = {""})
 @RestController
 @RequestMapping("/ifood-dev-week/bags")
 @RequiredArgsConstructor
