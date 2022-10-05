@@ -1,10 +1,5 @@
 package me.dio.sacolaApi.service;
 
-import java.util.List;
-
-import org.jetbrains.annotations.NotNull;
-import org.springframework.stereotype.Service;
-
 import lombok.RequiredArgsConstructor;
 import me.dio.sacolaApi.enumeration.PaymentForm;
 import me.dio.sacolaApi.exceptions.BusinessException;
@@ -12,17 +7,20 @@ import me.dio.sacolaApi.model.Bag;
 import me.dio.sacolaApi.model.Item;
 import me.dio.sacolaApi.model.Restaurant;
 import me.dio.sacolaApi.repository.BagRepository;
-import me.dio.sacolaApi.repository.ItemRepository;
 import me.dio.sacolaApi.repository.ProductRepository;
 import me.dio.sacolaApi.resource.dto.ItemDto;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class BagServiceImpl implements BagService {
 	private final BagRepository bagRepository;
 	private final ProductRepository productRepository;
-	private final ItemRepository itemRepository;
-	
+
 	@Override
 	public Item addItem(@NotNull ItemDto itemDto) {
 		Bag bag = seeBag(itemDto.getIdBag());
@@ -55,8 +53,15 @@ public class BagServiceImpl implements BagService {
 				throw new BusinessException("It's not possible to add products from different restaurants. Empty or close the bag!");
 			}
 		}
-		
+
+		List<Double> itemsValue = new ArrayList<>();
+
+		items.forEach(item1 -> itemsValue.add(item1.getProduct().getUnityValue() * item1.getQuantity()));
+
+		Double totalValueBag = itemsValue.stream().reduce(0.0, Double::sum);
+		bag.setTotalValue(totalValueBag);
 		bagRepository.save(bag);
+
 		return item;
 	}
 
