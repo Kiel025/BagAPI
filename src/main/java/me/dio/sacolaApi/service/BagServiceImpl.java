@@ -24,7 +24,7 @@ public class BagServiceImpl implements BagService {
 	private final ItemRepository itemRepository;
 	
 	@Override
-	public Item addItem(ItemDto itemDto) {
+	public Item addItem(@NotNull ItemDto itemDto) {
 		Bag bag = seeBag(itemDto.getIdBag());
 		
 		if (bag.isClosed()) {
